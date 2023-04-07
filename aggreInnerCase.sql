@@ -4,17 +4,6 @@ from STUDENTS
 where Marks>75 
 order by RIGHT(Name,3), ID ASC; -- order by multiple column
 
---Check if columns form triangle	
-SELECT 
-CASE WHEN A+B > C THEN 
-    CASE 
-    WHEN A=B AND B=C THEN 'Equilateral' 
-    WHEN A=B OR B=C OR A=C THEN 'Isosceles' 
-    WHEN A!=B OR B!=C OR A!=C THEN 'Scalene' 
-    END 
-ELSE 'Not A Triangle' 
-END as '' FROM TRIANGLES;
-
 --Write a query calculating the amount of error (i.e.:  ACTUAL-MISCALCULATED(WITHOUT 0)average monthly salaries), and round it up to the next integer.	
 SELECT CEIL(avg(salary)-avg(REPLACE(salary, 0,'')))
 from EMPLOYEES;
@@ -23,19 +12,6 @@ from EMPLOYEES;
 --The sum of all values in LONG_W rounded to a scale of  decimal places.
 SELECT ROUND(SUM(LAT_N),2), ROUND(SUM(LONG_W),2)
 FROM STATION;
-
---We define an employee's total earnings to be their monthly  worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as  space-separated integers.	
-SELECT SALARY*MONTHS, COUNT(*) 
-FROM EMPLOYEE 
-GROUP BY SALARY*MONTHS
-HAVING SALARY*MONTHS=(SELECT MAX(SALARY*MONTHS) FROM EMPLOYEE);
-
-select max(total),count(total) 
-from 
-(select (salary*months) as total
-from Employee) 
-as max 
-group by total desc limit 1;
 
 --Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than . Round your answer to  decimal places.	
 select ROUND(LONG_W,4)
